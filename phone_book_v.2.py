@@ -1,3 +1,4 @@
+# Main menu displayed to the user
 menu_text = """
 ┌──────────────────────────────────────────────┐
 │              --- PHONE BOOK ---              │
@@ -12,54 +13,63 @@ menu_text = """
 
 """
 
+# Message displayed when the program exits
 EXIT_RESPONSE = """
 ┌────────────────────────────┐
 │    Have a great time =]    │
 └────────────────────────────┘
 """
 
+# Error message for invalid phone numbers
 PHONE_NUMBER_ERROR = """
 ┌───────────────────────────────────────────────┐
 │    The phone number must be 11 digits long    │
 └───────────────────────────────────────────────┘
 """
 
+# Message displayed when a contact already exists
 CONTACT_EXISTS_MESSAGE = """
 ┌───────────────────────────────────────────────┐
 │    A contact with this name already exists    │
 └───────────────────────────────────────────────┘
 """
 
+# Message displayed after successfully adding a contact
 CONTACT_ADDED_MESSAGE = """
 ┌──────────────────────────────────┐
 │    Contact successfully added    │
 └──────────────────────────────────┘
 """
 
+# Message displayed when a contact cannot be found
 CONTACT_NOT_FOUND_MESSAGE = """
 ┌───────────────────────────────────────┐
 │    No contact found with this name    │
 └───────────────────────────────────────┘
 """
 
+# Message displayed after successfully adding a new number
 NUMBER_ADDED_MESSAGE = """
 ┌─────────────────────────────────────────┐
 │    The new number successfully added    │
 └─────────────────────────────────────────┘
 """
 
+# Message displayed after successfully removing a contact
 CONTACT_REMOVED_MESSAGE = """
 ┌────────────────────────────────────────┐
 │    The contact successfully removed    │
 └────────────────────────────────────────┘
 """
 
+# Message displayed when there are no contacts
 CONTACT_LIST_EMPTY_MESSAGE = """
 ┌─────────────────────────────┐
 │    Contact list is empty    │
 └─────────────────────────────┘
 """
 
+# Message displayed when the user enters an invalid menu choice
 INVALID_CHOICE_MESSAGE = """
 ┌────────────────────────────┐
 │    Invalid Choice (1-7)    │
@@ -67,6 +77,7 @@ INVALID_CHOICE_MESSAGE = """
 """
 
 
+# Get and validate a phone number
 def get_phone_number():
     while True:
         phone_number = input("• Enter the phone number : ")
@@ -77,10 +88,12 @@ def get_phone_number():
         print(PHONE_NUMBER_ERROR)
 
 
+# Get contact name
 def get_contact_name():
     return input("• Enter the contact's name : ").strip()
 
 
+# Add a new contact to the phone book
 def add_contact(contact_list):
     contact_name = get_contact_name()
 
@@ -93,6 +106,7 @@ def add_contact(contact_list):
     return CONTACT_ADDED_MESSAGE
 
 
+# Add another phone number to an existing contact
 def add_number_to_contact(contact_list):
     contact_name = get_contact_name()
 
@@ -105,6 +119,7 @@ def add_number_to_contact(contact_list):
     return NUMBER_ADDED_MESSAGE
 
 
+# Search for a contact and display its phone numbers
 def search_contact(contact_list):
     contact_name = get_contact_name()
 
@@ -120,6 +135,7 @@ def search_contact(contact_list):
 """
 
 
+# Remove a contact from the phone book
 def remove_contact(contact_list):
     contact_name = get_contact_name()
 
@@ -131,6 +147,7 @@ def remove_contact(contact_list):
     return CONTACT_REMOVED_MESSAGE
 
 
+# Display all contacts and their phone numbers
 def show_all_contacts(contact_list):
     if not contact_list:
         return CONTACT_LIST_EMPTY_MESSAGE
@@ -146,6 +163,7 @@ def show_all_contacts(contact_list):
     return contact_text
 
 
+# Ask the user whether they want to continue or exit
 def continue_cycle(result_message):
     continue_prompt = """
 • Do you want to continue? (Yes/No)
@@ -184,6 +202,7 @@ def continue_cycle(result_message):
         continue_choice = input(continue_prompt).lower()
 
 
+# Main program loop
 def main():
     contact_list = {}
 
@@ -192,31 +211,40 @@ def main():
             f"{menu_text}• Enter a number between 1 to 7 : "
         )
 
+        # Exit the program
         if user_choice == "7":
             print(EXIT_RESPONSE)
             break
 
+        # Add a new contact
         elif user_choice == "1":
             result_message = add_contact(contact_list)
 
+        # Add another number to an existing contact
         elif user_choice == "2":
             result_message = add_number_to_contact(contact_list)
 
+        # Search for a contact by name
         elif user_choice == "3":
             result_message = search_contact(contact_list)
 
+        # Remove a contact
         elif user_choice == "4":
             result_message = remove_contact(contact_list)
 
+        # Show the total number of contacts
         elif user_choice == "5":
             result_message = f"Quantity of Contacts >>> {len(contact_list)} \n"
 
+        # Show all contacts
         elif user_choice == "6":
             result_message = show_all_contacts(contact_list)
 
+        # Handle invalid menu choices
         else:
             result_message = INVALID_CHOICE_MESSAGE
 
+        # Ask for continue
         if continue_cycle(result_message):
             break
 

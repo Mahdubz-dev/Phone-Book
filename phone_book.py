@@ -20,6 +20,7 @@ exit_response = """
 └────────────────────────────┘"""
 
 
+# Get and validate a phone number
 def get_phone_number():
 
     while True:
@@ -36,10 +37,12 @@ def get_phone_number():
 """)
 
 
+# Get contact name
 def get_contact_name():
     return input("• Enter the contact's name : ").strip()
 
 
+# Add a new contact to the phone book
 def add_contact():
     contact_name = get_contact_name()
 
@@ -60,6 +63,7 @@ def add_contact():
 """
 
 
+# Add an additional phone number to an existing contact
 def add_number_to_contact():
     contact_name = get_contact_name()
 
@@ -79,6 +83,7 @@ def add_number_to_contact():
 """
 
 
+# Search for a contact and display its phone numbers
 def search_contact():
     contact_name = get_contact_name()
 
@@ -98,6 +103,7 @@ def search_contact():
 """
 
 
+# Remove a contact from the phone book
 def remove_contact():
     contact_name = get_contact_name()
 
@@ -117,6 +123,7 @@ def remove_contact():
 """
 
 
+# Ask for continue or exit
 def continue_cycle(result_message):
     continue_prompt = """
 • Do you want to continue? (Yes/No)
@@ -152,6 +159,7 @@ def continue_cycle(result_message):
             continue_choice = input(continue_prompt).lower()
 
 
+# Display all contacts with their phone numbers
 def show_all_contacts():
 
     if not contact_list:
@@ -172,34 +180,35 @@ def show_all_contacts():
     return contact_text
 
 
+# Main program loop
 while True:
 
     user_choice = input(f"{menu_text}• Enter a number between 1 to 7 : ")
 
     result_message = ""
 
-    # Exit
+    # Exit the program
     if user_choice == "7":
         print(exit_response)
         break
 
-    # 1- Add contact
+    # 1- Add a new contact
     elif user_choice == "1":
         result_message = add_contact()
 
-    # 2- Add number to contact
+    # 2- Add another phone number to an existing contact
     elif user_choice == "2":
         result_message = add_number_to_contact()
 
-    # 3- Search for a phone number by name
+    # 3- Search for a contact by name
     elif user_choice == "3":
         result_message = search_contact()
 
-    # 4- Remove contact
+    # 4- Remove a contact
     elif user_choice == "4":
         result_message = remove_contact()
 
-    # 5- Amount of contact
+    # 5- Show the total number of contacts
     elif user_choice == "5":
         result_message = f"Quantity of Contacts >>> {len(contact_list)}"
 
@@ -207,7 +216,7 @@ while True:
     elif user_choice == "6":
         result_message = show_all_contacts()
 
-        # Invalid choice
+        # Handle invalid menu choices
     else:
         print("""
 ┌────────────────────────────┐
@@ -215,5 +224,6 @@ while True:
 └────────────────────────────┘
 """)
 
+    # Ask the user whether to continue after each operation
     if continue_cycle(result_message):
         break
